@@ -1,0 +1,7 @@
+Filters (Time Format)
+Time Travel Hour Offset
+Uncaught Only vs Catch All Modes
+Deal with Panel Toggle
+Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
+Toast on Caught w/ optional undo
+Search Bar
