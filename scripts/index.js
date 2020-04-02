@@ -16,7 +16,7 @@ const nameToKey = (name = '') => {
 };
 
 const locationToString = (location = '') => {
-  if (['On A Tree Stump', 'On Tree Stump']) return 'On Tree Stump';
+  if (['On A Tree Stump', 'On Tree Stump'].includes(location)) return 'On Tree Stump';
   if (['On Tree', 'On Trees'].includes(location)) return 'On Trees';
   if (['On the Ground', 'On Ground', 'Hopping'].includes(location)) return 'On The Ground';
   if (['In Trees', 'Shake a Tree', 'Shake Tree', 'Shaking Tree'].includes(location)) return 'Shake a Tree';
