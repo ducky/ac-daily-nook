@@ -5,3 +5,5 @@ Deal with Panel Toggle
 Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
 Toast on Caught w/ optional undo
 Search Bar
+
+Copy Data to Google Sheet, Better Importing of CSV

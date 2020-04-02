@@ -35,8 +35,6 @@ const StyledJournal = styled.div`
 const Journal = ({ critters, viewMode, onRefresh }) => {
   const { listUncaughtActive, listUncaughtInactive, listCaught } = critters;
 
-  console.log(critters);
-
   useEffect(() => {
     const tickInterval = setInterval(onRefresh, 1000 * 15);
     return () => clearInterval(tickInterval);
