@@ -8,6 +8,7 @@ const SETTINGS_STORAGE_KEY = `${LOCAL_STORAGE_PREFIX}_SETTINGS`;
 const DEFAULT_SETTINGS = {
   critterType: 'ALL',
   hemisphere: 'N',
+  formatTime: '12',
   month: 'ALL',
   viewMode: 'VIEW_ALL',
 };
@@ -26,6 +27,7 @@ const defaultState = {
 export const selectors = {
   all: state => state.settings,
   critterType: state => state.settings.critterType,
+  formatTime: state => state.settings.formatTime,
   month: state => state.settings.month,
   hemisphere: state => state.settings.hemisphere,
   viewMode: state => state.settings.viewMode,

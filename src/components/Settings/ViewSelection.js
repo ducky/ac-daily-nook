@@ -11,9 +11,10 @@ const StyledSetting = styled.div``;
 const ViewSelection = ({ value, onToggleSetting }) => {
   const VIEW_OPTIONS = [
     { label: 'View All', value: 'VIEW_ALL' },
-    { label: 'Active Critters', value: 'VIEW_PROGRESS' },
-    { label: 'Upcoming Critters', value: 'VIEW_UNCAUGHT' },
-    { label: 'Caught Critters', value: 'VIEW_CAUGHT' },
+    { label: 'Museum Mode (Active by Urgency)', value: 'VIEW_PROGRESS' },
+    { label: 'Profit Mode (Active by Price)', value: 'VIEW_PROFIT' },
+    { label: 'To-Catch Mode (Active & Inactive)', value: 'VIEW_UNCAUGHT' },
+    { label: 'Collection Mode (Only Caught)', value: 'VIEW_CAUGHT' },
   ];
 
   const onChange = (key, value) => {
