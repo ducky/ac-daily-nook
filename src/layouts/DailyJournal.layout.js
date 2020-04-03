@@ -5,7 +5,7 @@ import Clock from 'components/Clock';
 import DailyJournal from 'components/DailyJournal';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import { DateSelection, HemisphereSelection, TypeSelection, ViewSelection } from 'components/Settings';
+import { SettingsPanel } from 'components/Settings';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -54,20 +54,10 @@ const DailyJournalLayout = () => {
   return (
     <StyledLayout>
       <div className="Root__header">
-        <Header
-          left={<Clock />}
-          center="Daily Nook"
-          right={
-            <div className="Root__header-actions">
-              <TypeSelection />
-              <DateSelection />
-              <HemisphereSelection />
-              <ViewSelection />
-            </div>
-          }
-        />
+        <Header center="Daily Nook" right={<Clock />} />
       </div>
       <div className="Root__body">
+        <SettingsPanel />
         <div className="Root__content">
           <DailyJournal />
         </div>
