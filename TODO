@@ -1,14 +1,7 @@
 Time Travel Hour Offset
-Profit Mode (Active by Sell Price)
 Deal with Panel Toggle
 Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
 Search Bar (Add multiple names/tags to search multiple)
 
-Copy Data to Google Sheet, Better Importing of CSV directly to JSON db file 
-Add more stats
-
 Missing Pictures
 Toast use hooks/better animation library?
-
-# Maybe Solved
-Date Shifting - Three Scenerios (In Past, Current, Future), Shift Past to Future
