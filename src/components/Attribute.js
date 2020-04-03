@@ -20,7 +20,7 @@ const StyledAttribute = styled.div`
 
 const Attribute = ({ label, children }) => (
   <StyledAttribute>
-    <div className="Attribute__label">{children ? `${label}:` : label}</div>
+    {label && <div className="Attribute__label">{children ? `${label}:` : label}</div>}
     {children && <div className="Attribute__value">{children}</div>}
   </StyledAttribute>
 );
