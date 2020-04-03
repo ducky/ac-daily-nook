@@ -123,11 +123,6 @@ const Journal = ({ critters, viewMode, onRefresh }) => {
       return renderSection(SECTION_LABELS.ACTIVE, listActive);
     }
 
-    if (viewMode === 'VIEW_PROGRESS') {
-      const { listUncaughtActive } = critters;
-      return renderSection(SECTION_LABELS.ACTIVE, listUncaughtActive);
-    }
-
     if (viewMode === 'VIEW_UNCAUGHT') {
       const { listUncaughtActive, listUncaughtInactive } = critters;
 

@@ -11,9 +11,8 @@ const StyledSetting = styled.div``;
 const ViewSelection = ({ value, onToggleSetting }) => {
   const VIEW_OPTIONS = [
     { label: 'View All', value: 'VIEW_ALL' },
-    { label: 'Museum Mode (Active by Urgency)', value: 'VIEW_PROGRESS' },
+    { label: 'Museum Mode (Uncaught by Urgency)', value: 'VIEW_UNCAUGHT' },
     { label: 'Profit Mode (Active by Price)', value: 'VIEW_PROFIT' },
-    { label: 'To-Catch Mode (Active & Inactive)', value: 'VIEW_UNCAUGHT' },
     { label: 'Collection Mode (Only Caught)', value: 'VIEW_CAUGHT' },
   ];
 
