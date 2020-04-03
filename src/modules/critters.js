@@ -25,7 +25,7 @@ const defaultState = {
 export const selectors = {
   data: state => state.critters.data,
   caughtList: state => state.critters.caughtList,
-  isCaughtId: (_, props) => props.identifier,
+  isCaughtId: (_, props) => props.id,
 };
 
 selectors.critters = createSelector(

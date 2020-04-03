@@ -118,20 +118,20 @@ export const parseAndSortCritters = (critters, crittersCaught = [], settings = {
     return { listActive };
   }
 
-  const [uncaughtList, caughtList] = partition(parsedCritters, c => !crittersCaught.includes(c.identifier));
+  const [uncaughtList, caughtList] = partition(parsedCritters, c => !crittersCaught.includes(c.id));
   const [uncaughtActiveList, uncaughtInactiveList] = partition(uncaughtList, c => c.isActive);
 
   const listUncaughtActive = orderBy(
     uncaughtActiveList,
-    ['timeActive', 'timeRemaining', 'monthsActive', 'identifier'],
+    ['timeActive', 'timeRemaining', 'monthsActive', 'id'],
     ['asc', 'asc', 'asc', 'asc']
   );
   const listUncaughtInactive = orderBy(
     uncaughtInactiveList,
-    ['timeUpcomingMinutes', 'timeActive', 'identifier'],
+    ['timeUpcomingMinutes', 'timeActive', 'id'],
     ['asc', 'asc', 'asc']
   );
-  const listCaught = orderBy(caughtList, ['identifier'], ['asc']);
+  const listCaught = orderBy(caughtList, ['id'], ['asc']);
 
   return {
     listUncaughtActive,

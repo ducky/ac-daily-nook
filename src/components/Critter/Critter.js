@@ -107,7 +107,7 @@ const StyledCritter = styled.div`
 `;
 
 const Critter = ({
-  identifier,
+  id,
   locationDescription,
   monthsNorthernHemisphere,
   monthsSouthernHemisphere,
@@ -154,7 +154,7 @@ const Critter = ({
         {/* <div className="Critter__overlay">YES! Caught One!</div> */}
         <div className="Critter__top">
           <div className="Critter__top-container">
-            <Image className="Critter__image" src={`images/sprites/${identifier}.png`} alt={name} />
+            <Image className="Critter__image" src={`images/sprites/${id}.png`} alt={name} />
           </div>
         </div>
         <div className="Critter__bio">

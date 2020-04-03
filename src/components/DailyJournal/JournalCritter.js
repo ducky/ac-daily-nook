@@ -112,7 +112,7 @@ const StyledCritter = styled.div`
 `;
 
 const Critter = ({
-  identifier,
+  id,
   locationDescription,
   monthsNorthernHemisphere,
   monthsSouthernHemisphere,
@@ -147,7 +147,7 @@ const Critter = ({
   };
 
   const onCaught = () => {
-    onToggleCaught(identifier);
+    onToggleCaught(id);
     const title = isCaught ? 'Marked as Uncaught' : 'Marked as Caught';
     const message = isCaught ? (
       <p>
@@ -161,7 +161,7 @@ const Critter = ({
     createToast('success', {
       title,
       message,
-      actions: [{ text: 'Undo', action: () => onToggleCaught(identifier) }],
+      actions: [{ text: 'Undo', action: () => onToggleCaught(id) }],
     });
   };
 
@@ -184,7 +184,7 @@ const Critter = ({
       >
         <div className="Critter__top">
           <div className="Critter__top-container">
-            <Image className="Critter__image" src={`images/sprites/${identifier}.png`} alt={name} />
+            <Image className="Critter__image" src={`images/sprites/${id}.png`} alt={name} />
           </div>
         </div>
         <div className="Critter__bio">

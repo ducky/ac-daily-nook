@@ -97,7 +97,7 @@ const Journal = ({ critters, viewMode, onRefresh }) => {
         {list.length > 0 && (
           <div className="Section__grid">
             {list.map(data => (
-              <Critter key={data.identifier} {...data} />
+              <Critter key={data.id} {...data} />
             ))}
           </div>
         )}
