@@ -1,4 +1,5 @@
 import moment from 'moment';
+import filter from 'lodash/filter';
 import orderBy from 'lodash/orderBy';
 import partition from 'lodash/partition';
 
@@ -10,10 +11,12 @@ import {
   parseUpcomingTime,
 } from './dateTime';
 
-const parseCritters = (critters, hemisphereKey = 'N') => {
+const parseCritters = (critters, settings) => {
   return critters.map(critter => {
-    const { timeStart, timeEnd, monthsNorthernHemisphere, monthsSouthernHemisphere } = critter;
-    const monthsToCheck = hemisphereKey === 'N' ? monthsNorthernHemisphere : monthsSouthernHemisphere;
+    const { priceSell, timeStart, timeEnd, monthsNorthernHemisphere, monthsSouthernHemisphere } = critter;
+    const formatTime = settings.formatTime === '12' ? 'h:mm A' : 'H:mm';
+    const sellPrice = Number(priceSell) > 0 ? Number(priceSell) : 0;
+    const monthsToCheck = settings.hemisphere === 'N' ? monthsNorthernHemisphere : monthsSouthernHemisphere;
 
     const monthBeginning = moment()
       .startOf('M')
@@ -34,12 +37,20 @@ const parseCritters = (critters, hemisphereKey = 'N') => {
     const timeStartMoment = moment().set({ hours: timeStartHours, minutes: timeStartMinutes });
     const timeEndMoment = moment().set({ hours: timeEndHours, minutes: timeEndMinutes });
 
+    // TODO - See if we can clean this up
     if (timeStartMoment.isAfter(timeEndMoment)) {
       timeEndMoment.add(1, 'days');
 
+      // Range is in Future, Shift to Now
       if (timeStartMoment.isAfter(now) && timeEndMoment.isAfter(now)) {
         timeStartMoment.subtract(1, 'd');
         timeEndMoment.subtract(1, 'd');
+      }
+
+      // Range is now Past, Shift Forward
+      if (timeEndMoment.isBefore(now)) {
+        timeStartMoment.add(1, 'd');
+        timeEndMoment.add(1, 'd');
       }
     }
 
@@ -75,31 +86,37 @@ const parseCritters = (critters, hemisphereKey = 'N') => {
       isActiveAlways,
       isReachingMonthEnd,
       monthsActive,
+      sellPrice,
       timeActive,
       timeRemaining, // Rename to daily
       timeRemainingMinutes, // Rename to display
       timeUpcoming,
       timeUpcomingMinutes,
       timeUrgency,
-      timeStart: timeStartMoment.format('h:mm A'),
-      timeEnd: timeEndMoment.format('h:mm A'),
+      timeStart: timeStartMoment.format(formatTime),
+      timeEnd: timeEndMoment.format(formatTime),
     };
   });
 };
 
-export const parseAndSortCritters = (critters, crittersCaught = [], options = {}) => {
-  const filteredByType =
-    options.critterType !== 'ALL' ? critters.filter(c => c.type === options.critterType) : critters;
+export const parseAndSortCritters = (critters, crittersCaught = [], settings = {}) => {
+  const filteredByType = settings.critterType !== 'ALL' ? filter(critters, { type: settings.critterType }) : critters;
 
   const filteredByMonth =
-    options.month !== 'ALL'
-      ? filteredByType.filter(c => {
-          const monthsToFilter = options.hemisphere === 'N' ? c.monthsNorthernHemisphere : c.monthsSouthernHemisphere;
-          return monthsToFilter.includes(options.month);
+    settings.month !== 'ALL'
+      ? filter(filteredByType, c => {
+          const monthsToFilter = settings.hemisphere === 'N' ? c.monthsNorthernHemisphere : c.monthsSouthernHemisphere;
+          return monthsToFilter.includes(settings.month);
         })
       : filteredByType;
 
-  const parsedCritters = parseCritters(filteredByMonth, options.hemisphere);
+  const parsedCritters = parseCritters(filteredByMonth, settings);
+
+  if (settings.viewMode === 'VIEW_PROFIT') {
+    const activeList = filter(parsedCritters, { isActive: true });
+    const listActive = orderBy(activeList, ['sellPrice'], ['desc']);
+    return { listActive };
+  }
 
   const [uncaughtList, caughtList] = partition(parsedCritters, c => !crittersCaught.includes(c.identifier));
   const [uncaughtActiveList, uncaughtInactiveList] = partition(uncaughtList, c => c.isActive);
@@ -109,7 +126,11 @@ export const parseAndSortCritters = (critters, crittersCaught = [], options = {}
     ['timeActive', 'timeRemaining', 'monthsActive', 'identifier'],
     ['asc', 'asc', 'asc', 'asc']
   );
-  const listUncaughtInactive = orderBy(uncaughtInactiveList, ['timeUpcomingMinutes', 'identifier'], ['asc', 'asc']);
+  const listUncaughtInactive = orderBy(
+    uncaughtInactiveList,
+    ['timeUpcomingMinutes', 'timeActive', 'identifier'],
+    ['asc', 'asc', 'asc']
+  );
   const listCaught = orderBy(caughtList, ['identifier'], ['asc']);
 
   return {

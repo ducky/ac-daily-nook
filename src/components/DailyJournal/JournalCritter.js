@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import theme from 'styles/theme';
 import { actions, selectors } from 'modules/critters';
 import { selectors as settingsSelectors } from 'modules/settings';
+import { actions as toastActions } from 'modules/toast';
 
 import Attribute from 'components/Attribute';
 import Badge from 'components/Badge';
@@ -17,10 +18,13 @@ const StyledCritter = styled.div`
   text-align: center;
   border-radius: 5px;
   transition: all 400ms;
-  ${props => props.caught && 'opacity: 0.8'};
 
   &:hover {
-    opacity: 1;
+  }
+
+  .Critter__panel {
+    border-top: 2px solid ${theme.invalid};
+    ${props => props.caught && `border-top-color: ${theme.A500}`};
   }
 
   .Critter__overlay {
@@ -42,7 +46,7 @@ const StyledCritter = styled.div`
 
   .Critter__top {
     position: relative;
-    height: 150px;
+    height: 100px;
     margin: 0 0 15px;
 
     &-container {
@@ -64,7 +68,7 @@ const StyledCritter = styled.div`
   }
 
   .Critter__image {
-    height: 125px;
+    height: 75px;
     width: auto;
     max-width: 100%;
   }
@@ -75,6 +79,10 @@ const StyledCritter = styled.div`
   .Critter__title {
     display: flex;
     align-items: center;
+
+    &--indicator {
+      margin-right: 10px;
+    }
 
     &--title {
       text-align: left;
@@ -89,10 +97,6 @@ const StyledCritter = styled.div`
       font-size: 10px;
       color: ${theme.font_secondary};
     }
-
-    &--indicator {
-      margin-right: 10px;
-    }
   }
 
   .Critter__label {
@@ -101,11 +105,12 @@ const StyledCritter = styled.div`
   }
 
   .Critter__stats {
-    margin: 0 0 30px;
+    font-size: 15px;
+    margin: 0 0 20px;
   }
 
   .Critter__months {
-    margin: 0 0 30px;
+    margin: 0 0 20px;
   }
 
   .Critter__action {
@@ -119,8 +124,9 @@ const Critter = ({
   monthsNorthernHemisphere,
   monthsSouthernHemisphere,
   name,
+  sellPrice,
   settings,
-  timeActive,
+  // timeActive,
   timeRemaining,
   timeUpcoming,
   timeStart,
@@ -130,7 +136,8 @@ const Critter = ({
   isActiveAlways,
   isCaught,
   isReachingMonthEnd,
-  toggleCaught,
+  createToast,
+  onToggleCaught,
 }) => {
   const monthsToShow = settings.hemisphere === 'N' ? monthsNorthernHemisphere : monthsSouthernHemisphere;
 
@@ -146,13 +153,29 @@ const Critter = ({
     return `${timeStart} to ${timeEnd}`;
   };
 
-  const onToggleCaught = () => {
-    toggleCaught(identifier);
+  const onCaught = () => {
+    onToggleCaught(identifier);
+    const title = isCaught ? 'Marked as Uncaught' : 'Marked as Caught';
+    const message = isCaught ? (
+      <p>
+        Whoops! <strong style={{ color: theme.A500 }}>{name}</strong> set back to uncaught status.
+      </p>
+    ) : (
+      <p>
+        Congrats on catching a beautiful <strong style={{ color: theme.A500 }}>{name}</strong>!
+      </p>
+    );
+    createToast('success', {
+      title,
+      message,
+      actions: [{ text: 'Undo', action: () => onToggleCaught(identifier) }],
+    });
   };
 
   return (
     <StyledCritter CritterType={type} caught={isCaught}>
       <Panel
+        className="Critter__panel"
         title={
           <div className="Critter__title">
             <div className="Critter__title--title">
@@ -175,15 +198,16 @@ const Critter = ({
         <div className="Critter__bio">
           <div className="Critter__stats">
             <Attribute label="Hours Active">{renderActiveStatus()}</Attribute>
-            {/* <Attribute label="Total Hours Active">{timeActive}</Attribute> */}
             <Attribute label="Location">{locationDescription}</Attribute>
+            <Attribute label="Bell Price">{sellPrice > 0 ? sellPrice : 'N/A'}</Attribute>
+            {/* <Attribute label="Total Hours Active">{timeActive}</Attribute> */}
           </div>
           <div className="Critter__months">
             <Attribute label="Months Available" />
             <PrettyMonths active={monthsToShow} />
           </div>
           <div className="Critter__action">
-            <Button default={isCaught} onClick={onToggleCaught}>
+            <Button default={isCaught} onClick={onCaught}>
               {isCaught ? 'UNMARK AS CAUGHT' : 'MARK AS CAUGHT'}
             </Button>
           </div>
@@ -199,7 +223,8 @@ const mapState = (state, props) => ({
 });
 
 const mapDispatch = {
-  toggleCaught: actions.toggleCaught,
+  createToast: toastActions.createToast,
+  onToggleCaught: actions.toggleCaught,
 };
 
 export default connect(mapState, mapDispatch)(Critter);
