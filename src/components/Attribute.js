@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const StyledAttribute = styled.div`
   display: flex;
-  margin: 0 0 10px;
+  margin: 0 0 8px;
 
   &:last-child {
     margin: 0;

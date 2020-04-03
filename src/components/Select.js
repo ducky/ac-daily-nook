@@ -9,8 +9,8 @@ const StyledSelect = styled.select`
   width: 100%;
   font-size: 14px;
   padding: 10px 15px;
-  background: ${theme.B400};
-  border: 1px solid ${theme.B600};
+  background: ${theme.B500};
+  border: 1px solid ${theme.B700};
   border-radius: 3px;
   box-shadow: none;
   color: ${theme.font_primary};
