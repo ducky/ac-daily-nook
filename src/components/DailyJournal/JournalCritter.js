@@ -119,7 +119,7 @@ const Critter = ({
   name,
   sellPrice,
   settings,
-  // timeActive,
+  shadowSize,
   timeRemaining,
   timeUpcoming,
   timeStart,
@@ -191,8 +191,9 @@ const Critter = ({
           <div className="Critter__stats">
             <Attribute label="Hours Active">{renderActiveStatus()}</Attribute>
             <Attribute label="Location">{locationDescription}</Attribute>
+            {type === 'FISH' && <Attribute label="Shadow Size">{shadowSize}</Attribute>}
             <Attribute label="Bell Price">{sellPrice > 0 ? sellPrice : 'N/A'}</Attribute>
-            {/* <Attribute label="Total Hours Active">{timeActive}</Attribute> */}
+            {type === 'BUG' && <Attribute>&nbsp;</Attribute>}
           </div>
           <div className="Critter__months">
             <Attribute label="Months Available" />
