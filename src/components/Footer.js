@@ -8,7 +8,7 @@ const StyledFooter = styled.div`
   position: relative;
   font-size: 12px;
   text-align: center;
-  padding: 5px 10px;
+  padding: 8px 10px;
   box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.2);
   z-index: 1;
 
@@ -39,7 +39,10 @@ const StyledFooter = styled.div`
 
 const Footer = () => (
   <StyledFooter>
-    <div className="Footer__left">Disclaimer - Animal Crossing & Critters are all property of Nintendo</div>
+    <div className="Footer__left">
+      Disclaimer - Animal Crossing & Critters are all property of Nintendo; Data not 100% accurate as it's community
+      driven based on Wiki.
+    </div>
     <div className="Footer__right">
       Made with
       <FontAwesomeIcon className="emoji" icon="heart" />
