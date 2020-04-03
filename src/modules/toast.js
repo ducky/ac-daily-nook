@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
 import { replaceItem, removeItem } from 'utils/array';
 
