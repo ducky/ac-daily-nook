@@ -2,10 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-// import theme from '../styles/theme';
-
 // import ModalContainer from '../components/Modal.container';
-// import ToastContainer from '../components/Toast.container';
+import ToastContainer from 'components/Toast.container';
 import GlobalStyle from 'styles/global';
 import NormalizeStyle from 'styles/normalize';
 
@@ -21,7 +19,7 @@ const SiteLayout = ({ children }) => (
       <div className="Site__content">{children}</div>
     </Router>
     {/* <ModalContainer /> */}
-    {/* <ToastContainer /> */}
+    <ToastContainer />
     <NormalizeStyle />
     <GlobalStyle />
   </StyledLayout>
