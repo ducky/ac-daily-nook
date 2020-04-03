@@ -17,15 +17,8 @@ import PrettyMonths from 'components/PrettyMonthsCompact';
 const StyledCritter = styled.div`
   text-align: center;
   border-radius: 5px;
-  transition: all 400ms;
-
-  &:hover {
-  }
-
-  .Critter__panel {
-    border-top: 2px solid ${theme.invalid};
-    ${props => props.caught && `border-top-color: ${theme.A500}`};
-  }
+  border-top: 2px solid ${theme.invalid};
+  ${props => props.isCaught && `border-top-color: ${theme.A500}`};
 
   .Critter__overlay {
     position: absolute;
@@ -173,9 +166,8 @@ const Critter = ({
   };
 
   return (
-    <StyledCritter CritterType={type} caught={isCaught}>
+    <StyledCritter isCaught={isCaught}>
       <Panel
-        className="Critter__panel"
         title={
           <div className="Critter__title">
             <div className="Critter__title--title">
