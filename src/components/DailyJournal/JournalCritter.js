@@ -61,7 +61,7 @@ const StyledCritter = styled.div`
   }
 
   .Critter__image {
-    height: 75px;
+    height: 50px;
     width: auto;
     max-width: 100%;
   }
