@@ -1,3 +1,3 @@
-export { default as JournalLayout } from './Journal.layout';
 export { default as DailyJournalLayout } from './DailyJournal.layout';
+export { default as PediaLayout } from './Pedia.layout';
 export { default } from './Site.layout';

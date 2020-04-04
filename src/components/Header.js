@@ -9,8 +9,6 @@ const StyledHeader = styled.header`
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   background: ${theme.B700};
-  height: 50px;
-  padding: 8px 25px;
   font-weight: 700;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
@@ -21,6 +19,7 @@ const StyledHeader = styled.header`
     pointer-events: none;
     text-align: center;
     margin: 0 10px;
+    padding: 8px 25px;
   }
 
   .Header__left {
@@ -33,6 +32,7 @@ const StyledHeader = styled.header`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding: 8px 25px;
   }
 `;
 

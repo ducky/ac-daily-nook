@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Clock from 'components/Clock';
 import DailyJournal from 'components/DailyJournal';
 import Header from 'components/Header';
+import Navigation from 'components/Navigation';
 import Footer from 'components/Footer';
 import { SettingsPanel } from 'components/Settings';
 
@@ -54,7 +55,7 @@ const DailyJournalLayout = () => {
   return (
     <StyledLayout>
       <div className="Root__header">
-        <Header center="Daily Nook" right={<Clock />} />
+        <Header left={<Navigation />} center="Daily Nook" right={<Clock />} />
       </div>
       <div className="Root__body">
         <SettingsPanel />

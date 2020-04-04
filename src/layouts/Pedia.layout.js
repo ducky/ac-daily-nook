@@ -1,13 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import DATA from 'data/db.json';
-
-// import theme from 'styles/theme';
-
 import Clock from 'components/Clock';
-import CritterGrid from 'components/Critter';
+import Pedia from 'components/Pedia';
 import Header from 'components/Header';
+import Navigation from 'components/Navigation';
+import Footer from 'components/Footer';
 
 const StyledLayout = styled.div`
   display: flex;
@@ -16,6 +14,18 @@ const StyledLayout = styled.div`
 
   .Root__header {
     flex: 0 0 auto;
+
+    &-actions {
+      display: flex;
+
+      & > * {
+        margin-right: 15px;
+
+        &:last-child {
+          margin: 0;
+        }
+      }
+    }
   }
 
   .Root__body {
@@ -34,21 +44,28 @@ const StyledLayout = styled.div`
     bottom: 0;
     overflow: auto;
   }
+
+  .Root__footer {
+    flex: 0 0 auto;
+  }
 `;
 
-const HomeLayout = () => {
+const DailyJournalLayout = ({ type }) => {
   return (
     <StyledLayout>
       <div className="Root__header">
-        <Header left={<Clock />} center="Daily Nook" right="Actions" />
+        <Header left={<Navigation />} center="Daily Nook" right={<Clock />} />
       </div>
       <div className="Root__body">
         <div className="Root__content">
-          <CritterGrid data={DATA} />
+          <Pedia type={type} />
         </div>
+      </div>
+      <div className="Root__footer">
+        <Footer />
       </div>
     </StyledLayout>
   );
 };
 
-export default HomeLayout;
+export default DailyJournalLayout;
