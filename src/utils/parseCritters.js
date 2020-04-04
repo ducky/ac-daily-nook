@@ -11,6 +11,29 @@ import {
   parseUpcomingTime,
 } from './dateTime';
 
+export const parseSimpleCritters = (critters, settings) => {
+  return critters.map(critter => {
+    const { priceSell, timeStart, timeEnd } = critter;
+    const formatTime = settings.formatTime === '12' ? 'h:mm A' : 'H:mm';
+    const sellPrice = Number(priceSell) > 0 ? Number(priceSell) : 0;
+
+    const [timeStartHours, timeStartMinutes] = timeStart.split(':');
+    const [timeEndHours, timeEndMinutes] = timeEnd.split(':');
+    const timeStartMoment = moment().set({ hours: timeStartHours, minutes: timeStartMinutes });
+    const timeEndMoment = moment().set({ hours: timeEndHours, minutes: timeEndMinutes });
+
+    const isActiveAlways = timeStart === '0:00' && timeEnd === '24:00';
+
+    return {
+      ...critter,
+      isActiveAlways,
+      sellPrice,
+      timeStart: timeStartMoment.format(formatTime),
+      timeEnd: timeEndMoment.format(formatTime),
+    };
+  });
+};
+
 const parseCritters = (critters, settings) => {
   return critters.map(critter => {
     const { priceSell, timeStart, timeEnd, monthsNorthernHemisphere, monthsSouthernHemisphere } = critter;
