@@ -37,10 +37,10 @@ const StyledNavigation = styled.div`
 const Navigation = () => (
   <StyledNavigation>
     <NavLink to="/" exact>
-      Catch Mode
+      Daily Critters
     </NavLink>
-    <NavLink to="/bugs">Bugs</NavLink>
-    <NavLink to="/fish">Fish</NavLink>
+    <NavLink to="/bugs">Bugs List</NavLink>
+    <NavLink to="/fish">Fish List</NavLink>
   </StyledNavigation>
 );
 
