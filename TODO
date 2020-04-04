@@ -1,6 +1,7 @@
 Time Travel Hour Offset
-Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
 Search Bar (Add multiple names/tags to search multiple)
+Mobile Styles
+Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
 
 Deal with Panel Toggle?
 Toast use hooks/better animation library?
