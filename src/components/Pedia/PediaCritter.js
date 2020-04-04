@@ -6,40 +6,16 @@ import theme from 'styles/theme';
 import Attribute from 'components/Attribute';
 import Badge from 'components/Badge';
 import Image from 'components/Image';
-import LiveIndicator from 'components/LiveIndicator';
 import Panel from 'components/Panel';
 import PrettyMonths from 'components/PrettyMonths';
 
 const StyledCritter = styled.div`
-  position: relative;
   text-align: center;
   border-radius: 5px;
-  /* overflow: hidden;
-  cursor: pointer; */
-
-  .Critter__overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
-    font-size: 36px;
-    font-weight: 700;
-    opacity: 0;
-    transition: opacity 600ms;
-    z-index: 1;
-  }
-
-  &:hover .Critter__overlay {
-    opacity: 1;
-  }
 
   .Critter__top {
-    height: 150px;
+    position: relative;
+    height: 100px;
     margin: 0 0 15px;
 
     &-container {
@@ -57,7 +33,7 @@ const StyledCritter = styled.div`
   }
 
   .Critter__image {
-    height: 125px;
+    height: 50px;
     width: auto;
     max-width: 100%;
   }
@@ -68,6 +44,10 @@ const StyledCritter = styled.div`
   .Critter__title {
     display: flex;
     align-items: center;
+
+    &--indicator {
+      margin-right: 10px;
+    }
 
     &--title {
       text-align: left;
@@ -82,10 +62,6 @@ const StyledCritter = styled.div`
       font-size: 10px;
       color: ${theme.font_secondary};
     }
-
-    &--indicator {
-      margin-right: 10px;
-    }
   }
 
   .Critter__label {
@@ -93,16 +69,17 @@ const StyledCritter = styled.div`
     margin: 0 0 8px;
   }
 
-  .Critter__hemispheres {
-    margin-top: 25px;
+  .Critter__stats {
+    font-size: 15px;
+    margin: 0 0 20px;
   }
 
   .Critter__months {
     margin: 0 0 20px;
+  }
 
-    &:last-child {
-      margin: 0;
-    }
+  .Critter__action {
+    padding: 0 50px;
   }
 `;
 
@@ -112,36 +89,25 @@ const Critter = ({
   monthsNorthernHemisphere,
   monthsSouthernHemisphere,
   name,
-  timeRemaining,
-  timeUpcoming,
+  sellPrice,
+  shadowSize,
   timeStart,
   timeEnd,
   type,
-  isActive,
   isActiveAlways,
 }) => {
-  const renderTimeRemaining = () => {
-    if (isActiveAlways) return 'Always Active';
-    if (isActive) return `Time Left Today: ${timeRemaining}`;
-    return `Time Until Active: ${timeUpcoming}`;
-  };
-
   const renderActiveStatus = () => {
     if (isActiveAlways) return 'Always';
     return `${timeStart} to ${timeEnd}`;
   };
 
   return (
-    <StyledCritter CritterType={type}>
+    <StyledCritter>
       <Panel
         title={
           <div className="Critter__title">
-            <div className="Critter__title--indicator">
-              <LiveIndicator active={isActive} />
-            </div>
             <div className="Critter__title--title">
               <div className="Critter__title--name">{name}</div>
-              <div className="Critter__title--time">{renderTimeRemaining()}</div>
             </div>
           </div>
         }
@@ -151,24 +117,26 @@ const Critter = ({
           </Badge>
         }
       >
-        {/* <div className="Critter__overlay">YES! Caught One!</div> */}
         <div className="Critter__top">
           <div className="Critter__top-container">
             <Image className="Critter__image" src={`images/sprites/${id}.png`} alt={name} />
           </div>
         </div>
         <div className="Critter__bio">
-          <Attribute label="Hours Active">{renderActiveStatus()}</Attribute>
-          <Attribute label="Location">{locationDescription}</Attribute>
-          <div className="Critter__hemispheres">
-            <div className="Critter__months">
-              <div className="Critter__label">Northern Hemisphere</div>
-              <PrettyMonths active={monthsNorthernHemisphere} />
-            </div>
-            <div className="Critter__months">
-              <div className="Critter__label">Southern Hemisphere</div>
-              <PrettyMonths active={monthsSouthernHemisphere} />
-            </div>
+          <div className="Critter__stats">
+            <Attribute label="Hours Active">{renderActiveStatus()}</Attribute>
+            <Attribute label="Location">{locationDescription}</Attribute>
+            {type === 'FISH' && <Attribute label="Shadow Size">{shadowSize}</Attribute>}
+            <Attribute label="Bell Price">{sellPrice > 0 ? sellPrice : 'N/A'}</Attribute>
+            {type === 'BUG' && <Attribute>&nbsp;</Attribute>}
+          </div>
+          <div className="Critter__months">
+            <Attribute label="Northern Hemisphere" />
+            <PrettyMonths active={monthsNorthernHemisphere} />
+          </div>
+          <div className="Critter__months">
+            <Attribute label="Southern Hemisphere" />
+            <PrettyMonths active={monthsSouthernHemisphere} />
           </div>
         </div>
       </Panel>
