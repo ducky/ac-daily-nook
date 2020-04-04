@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import theme from 'styles/theme';
 
@@ -35,16 +36,21 @@ const Month = styled.div`
   font-weight: 700;
   border-radius: 3px;
 
+  ${props => props.current && `border: 2px solid ${theme.font_secondary}`};
+
   ${props => props.active && `background: ${theme.A500}`};
   ${props => props.active && `border-color: ${theme.A500}`};
   ${props => props.active && `color: ${theme.font_primary}`};
+  ${props => props.active && props.current && `border: 2px solid ${theme.font_primary}`};
 `;
 
 const PrettyMonths = ({ active }) => {
+  const currentMonth = moment().format('MM');
+
   return (
     <StyledMonths>
       {MONTHS.map(month => (
-        <Month key={month.id} active={active.includes(month.id)}>
+        <Month key={month.id} active={active.includes(month.id)} current={currentMonth === month.id}>
           {month.value}
         </Month>
       ))}
