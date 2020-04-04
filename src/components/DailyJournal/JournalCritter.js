@@ -20,23 +20,6 @@ const StyledCritter = styled.div`
   border-top: 2px solid ${theme.invalid};
   ${props => props.isCaught && `border-top-color: ${theme.A500}`};
 
-  .Critter__overlay {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
-    font-size: 36px;
-    font-weight: 700;
-    opacity: 0;
-    transition: opacity 400ms;
-    z-index: 1;
-  }
-
   .Critter__top {
     position: relative;
     height: 100px;
@@ -53,10 +36,6 @@ const StyledCritter = styled.div`
       box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
       border-radius: 3px;
       overflow: hidden;
-    }
-
-    &:hover .Critter__overlay {
-      opacity: 1;
     }
   }
 
