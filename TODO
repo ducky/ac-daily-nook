@@ -2,6 +2,9 @@ Time Travel Hour Offset
 Search Bar (Add multiple names/tags to search multiple)
 Mobile Styles
 Change timeRemainingMinuts in parseCritter to be the opposite (timeRemaining, timeRemainingFormatted)
+Add Paintings/Statues/Sea Creatures
+Add "Museum Added" Button
+Check Month on load to reset filter to current month
 
 Deal with Panel Toggle?
 Toast use hooks/better animation library?
